@@ -30,7 +30,6 @@ Given a user-provided curve (e.g., drop values across distances), the tool:
 * Defensive validation for input consistency
 * Easy to extend (CLI, API, NumPy acceleration)
 
-
 ---
 
 ## Requirements
@@ -63,6 +62,14 @@ similarity = (1 - normalized_rmse) * 100
 ```
 
 5. Select the highest scoring match
+
+### Trajectory Curve Data:
+
+The source code contains two different (but closely-related) curve data tables:
+* Original vendor-supplied table
+* An updated table conting extrapolated half-values (for closer matching)
+
+Users are free edit the script to make use whichever table they believe will suit their needs best.
 
 ---
 
