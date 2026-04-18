@@ -1,6 +1,6 @@
 # Trajectory Curve Matcher
 
-A tool for matching a user-provided trajectory curve against a predefined dataset using a normalized RMSE similarity metric.
+A tool for matching a user-provided trajectory curve against a pre-defined dataset using a normalized RMSE similarity metric.
 
 ---
 
@@ -65,9 +65,11 @@ similarity = (1 - normalized_rmse) * 100
 
 ### Trajectory Curve Data:
 
-The source code contains two different (but closely-related) curve data tables:
-* Original vendor-supplied table
-* An updated table conting extrapolated half-values (for closer matching)
+This repo contains two different (but closely-related) curve data tables, in JSON format:
+* basic-curve-table.json: Original vendor-supplied table
+* extended-curve-table.json: An updated table conting extrapolated half-values (for closer matching)
+
+Tables are given basic validation at load time.
 
 Users are free edit the script to make use whichever table they believe will suit their needs best.
 
@@ -77,7 +79,7 @@ Users are free edit the script to make use whichever table they believe will sui
 
 ### Example
 
-At present, users must edit the script to input their curve data, but running this script is very simple:
+At present, users must edit the script to input their for analysis curve data, but running this script is very simple:
 
 ```
 python3 /trajectory-curve-match.py
@@ -92,25 +94,6 @@ Setting:   315
 Curve:     [0.0, -4.0, -8.6, -12.8, -16.0, -20.2, -26.5, -33.9, -41.8]
 User Data: [0.0, -2.6, -5.9, -9.8, -14.4, -19.9, -26.3, -33.8, -42.4]
 Match:     96.37%
-```
-
----
-
-## Validation
-
-The system enforces some consistency rules:
-
-* Equal-length curves across dataset
-* Equal-length user input vs reference curves
-
-Optional validation helper:
-
-```python
-def validate_table(curve_table):
-    lengths = {len(v) for v in curve_table.values()}
-
-    if len(lengths) != 1:
-        raise ValueError(f"Inconsistent curve lengths: {lengths}")
 ```
 
 ---
@@ -143,7 +126,6 @@ def validate_table(curve_table):
 ## Possible Future Enhancements
 
 * Distance-weighted similarity (e.g., prioritize long-range accuracy)
-* Migrating curve table data to a config file
 * CLI interface (`argparse`) for user-supplied curve data
 * Format unit testing harness
 
